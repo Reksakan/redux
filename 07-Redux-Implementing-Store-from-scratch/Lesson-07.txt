@@ -1,0 +1,67 @@
+const counter = (state = 0, action) => {
+  switch(action.type) {
+    case 'INCREMENT' : return state + 1;
+    case 'DECREMENT' : return state - 1; 
+    default: return state;
+  }
+}
+
+// const { createStore } = Redux; 
+//const store = createStore(counter);
+
+const createStore = (reducer) => {
+  let state;
+  const listeners = [];
+
+  const getState = () => state;
+  
+  const dispatch = (action) => {
+    state = reducer(state, action);
+    listeners.forEach(listener => listener()); //can't understand what listener() does
+  }
+
+  //can't understand how subscribe works in general
+  const subscribe = (listener) => {
+    listeners.push(listener); 
+    return () => {
+      listeners = listeners.filter(l => l !== listener); 
+    }
+  } 
+  
+  dispatch({}); //why we launching it? 
+  return { getState, dispatch, subscribe}
+};
+
+const store = createStore(counter);
+
+const render = () => {
+  document.body.innerText = store.getState();
+}
+
+store.subscribe(render);
+render();
+
+document.addEventListener('click', ()=> store.dispatch({type : 'INCREMENT'}));
+
+__________________________________________________________________________
+const counter = (state = 0, action) => {
+  switch(action.type) {
+    case 'INCREMENT' : state + 1; 
+    case 'DECREMENT' : state - 1; 
+    default : state;
+  }
+}
+
+const { createStore } = Redux;
+//var createStore = Redux.createStore; !check if it is right
+const store = createStore(counter);
+
+const render = () => {
+  document.body.innerText = store.getState();
+}
+
+store.subscribe(render);
+render();
+
+document.addEventListener('click', ()=> store.dispatch({ type: 'INCREMENT'}));
+
