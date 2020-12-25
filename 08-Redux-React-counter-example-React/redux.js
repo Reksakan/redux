@@ -21,6 +21,7 @@ const render = () => {
   );
 }
 
+//interesting
 
 store.subscribe(render);
 render();
