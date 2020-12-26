@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Bin</title>
+    <link rel="stylesheet" href="./scss/redux.css">
+    <script src="https://unpkg.com/htm@2.2.1" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.1/redux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js"></script>
+  </head>
+  <body>
+    <div class="root" id='root'></div>
+  </body>
+  <script src="./redux.jsx"></script>
+  <script type="module"></script>
+
+</html>
+
+______________________________________________________________________________
+const { createElement, useState } = React;
+const html = htm.bind(createElement);
+
+const counter = (state = 0, action) => {
+  switch(action.type) {
+    case 'INCREMENT' : return state + 1;
+    case 'DECREMENT' : return state - 1;
+    default: return state;
+  }
+}
+const { createStore } = Redux;
+const store = createStore(counter);
+
+const Counter = ({ value, onIncrement, onDecrement }) => (
+  html`
+    <h1 class="counter">${value}</h1>
+    <button class="increment" onClick=${onIncrement}>+</button>
+    <button class="decrement" onClick=${onDecrement}>-</button>
+    `
+);
+  
+const render = () => {
+  ReactDOM.render(
+    html `<${Counter} 
+    value=${store.getState()}
+    onIncrement=${() => store.dispatch({ type: 'INCREMENT' })}
+    onDecrement=${() => store.dispatch({ type: 'DECREMENT' })} />`, 
+    document.getElementById('root')
+  );
+}
+
+store.subscribe(render);
+render();
+__________________________________________________________________________________
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.increment, .decrement {
+  width: 4rem;
+  height: 3rem;
+}
+
+.counter {
+  font-size: 4rem;
+}
