@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const Count = ({ value, onIncrement, onDecrement}) => {
   return (
     <div>
       <h1>{value}</h1>
-      <button type="click" className="increment" onClick={onIncrement}>+</button>
-      <button type="click" className="decrement" onClick={onDecrement}>-</button>
+      <button className="increment" onClick={onIncrement}>+</button>
+      <button className="decrement" onClick={onDecrement}>-</button>
     </div>
   )
 };
@@ -17,5 +18,5 @@ Count.propTypes = {
   onDecrement: PropTypes.func.isRequired
 }
 
-
-export default Count;
+export default connect()(Count);
+// export default Count;

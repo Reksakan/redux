@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStore } from 'redux';
+import { connect } from 'react-redux';
 import './index.css';
 import counter from './components/counter/counter';
 import Count from './components/Count/Count'
@@ -17,7 +18,5 @@ const App = () => {
     )
 }
 
-store.subscribe(App);
-App();
-
-export default App;
+// export default App;
+export default connect()(App);
