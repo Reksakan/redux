@@ -17,8 +17,8 @@ const createStore = (reducer) => {
   const getState = () => state; 
 
   const dispatch = (action) => {
-    state = reducer(state,action); // as I understand the state inside the reducer is not the same variable as the state in the left to equal sign?
-    listeners.forEach(listener => listener()) // what this listener() does? 
+    state = reducer(state, action); // as I understand the state inside the reducer is not the same variable as the state in the left to equal sign?
+    listeners.forEach(listener => listener()); // what this listener() does? 
   }
 
   const subscribe = (listener) => {
@@ -28,7 +28,7 @@ const createStore = (reducer) => {
 
   dispatch({});
   
-  return {getState, dispatch, subscribe}
+  return ({getState, dispatch, subscribe});
 } 
 
 const store = createStore(counter);
