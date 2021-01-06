@@ -1,0 +1,13 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.increment, .decrement {
+  width: 4rem;
+  height: 3rem;
+}
+
+.counter {
+  font-size: 4rem;
+}
