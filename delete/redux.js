@@ -1,30 +1,29 @@
-const todo = (state = [], action) => {
-  switch (action.type) {
-    case 'ADD_TODO' : return [
-      ...state, 
-      {
-        id: action.id,
-        text: action.text,
-        completed: false
-      }
-    ]
-
+const todo = (state, action) => {
+  switch(action.type) {
+    case 'ADD_TODO' : return [{
+      id: action.id,
+      text: action.text,
+      completed: false
+    }]
+  
     case 'TOGGLE_TODO' : 
-      return state.map(todo => {
-        if(todo.id !== action.id) {
-          return todo;
-        }
+    if (state.id !==action.id) {
+      return state;
+    }
+    return {
+      ...state,
+      completed: !state.completed
+    }
+}}
 
-        return [
-          ...todo, 
-          {
-            completed: !todo.completed
-          }]
+const todos = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_TODO' : return todo(undefined, action);
+    
+    case 'TOGGLE_TODO' : 
+    return state.map(t => todo(t, action))
 
-      })
-
-    default: return state;
-
+    default: return todo;
   }
 }
 
@@ -32,47 +31,55 @@ const testAddTodo = () => {
   const stateBefore = [];
   const action = {
     type: 'ADD_TODO',
-    id: 0,
-    text: 'Buy TV',
+    id: 0, 
+    text: 'Buy TV'
   };
 
   const stateAfter = [{
     id: 0,
     text: 'Buy TV',
     completed: false
-  }]
+  }];
 
   expect(todos(stateBefore, action)).toEqual(stateAfter);
 }
 
 const testToggleTodo = () => {
-  const stateBefore = [{
-    id: 0,
-    text: 'Buy TV',
-    completed: false
-  },{
-    id: 1,
-    text: 'Buy Present',
-    completed: false
-  }];
+  const stateBefore = [
+    {
+      id: 0, 
+      text: 'Buy TV',
+      completed: false
+    },
+    {
+      id: 1,
+      text: 'Buy present',
+      completed: false
+    }
+  ];
   
   const action = {
-    type: 'TOGGLE_TODO',
-    id: 1
-  };
-  
-  const stateAfter = [{
-    id: 0,
-    text: 'Buy TV',
-    completed: false
-  },{
-    id: 1,
-    text: 'Buy Present',
-    completed: true
-  }];;
+    type: 'TOGGLE_TODO', 
+    id: 1 
+  }
 
-  expect(todos(stateBefore).toEqual(stateAfter));
+  const stateAfter = [
+    {
+      id: 0, 
+      text: 'Buy TV',
+      completed: false
+    },
+    {
+      id: 1,
+      text: 'Buy present',
+      completed: true
+    }
+  ]
+
+  expect(todos(stateBefore, action)).toEqual(stateAfter)
+
 }
 
 testAddTodo();
-console.log('Test is passed well!');
+testToggleTodo();
+console.log('Test went well!');
