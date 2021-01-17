@@ -38,7 +38,6 @@ const visibilityFilter = (
     switch(action.type) {
       case 'SET_VISIBILITY_FILTER' : 
         return action.filter;
-      
       default: return state;
     }
 };
@@ -63,7 +62,7 @@ console.log('Initial state: ');
 console.log(store.getState());
 console.log('--------------------');
 
-console.log('Dispatiching first ADD_TODO.');
+console.log('Dispatching first ADD_TODO.');
 store.dispatch({
   type: 'ADD_TODO',
   id: 0,
