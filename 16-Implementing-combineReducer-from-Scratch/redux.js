@@ -42,30 +42,22 @@ const visibilityFilter = (
     }
 };
 
-// const todoApp = (state = {}, action) => {
-//   return {
-//     todos: todos(
-//       state.todos,
-//       action
-//     ),
-//     visibilityFilter: visibilityFilter(
-//       state.visibilityFilter,
-//       action
-//     )
-//   };
-// };
+const combineReducers = (reducers) => {
+  return (state = {}, action) => {
+    return Object.keys(reducers).reduce(
+      (nextState, key) => {
+        nextState[key] = reducers[key](
+          state[key],
+          action
+        );
+        return nextState;
+      },
+      {}
+    )
+  }
+}
 
-// const {combineReducers} = Redux;
-// const todoApp = combineReducers({
-//   todos: todos,
-//   visibilityFilter: visibilityFilter
-// });
-
-const {combineReducers} = Redux;
-const todoApp = combineReducers({
-  todos,
-  visibilityFilter
-});
+const todoApp = combineReducers({todos, visibilityFilter});
 
 const {createStore} = Redux;
 const store = createStore(todoApp);
@@ -111,3 +103,12 @@ store.dispatch({
 console.log('Current state: ');
 console.log(store.getState());
 console.log('--------------------');
+
+
+const object1 = {
+  asker: 'Asker',
+  nata: 'Natalya',
+  address: 'Address'
+}
+
+console.log('Object.keys: ', Object.keys(object1))
