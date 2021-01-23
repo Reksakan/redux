@@ -1,6 +1,7 @@
 const todo = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO' : return {
+    case 'ADD_TODO' :
+      return {
       id: action.id,
       text: action.text,
       completed: false
@@ -13,7 +14,6 @@ const todo = (state, action) => {
         ...state, 
         completed: !state.completed
       }
-
     default: return state;
   }
 }
@@ -24,7 +24,6 @@ const todos = (state = [], action) => {
       ...state, 
       todo(undefined, action)
     ];
-
     case 'TOGGLE_TODO' : 
       return state.map(t => todo(t, action))
 
@@ -60,6 +59,8 @@ const combineReducers = (reducers) => {
 const todoApp = combineReducers({todos, visibilityFilter});
 
 const {createStore} = Redux;
+// var createStore = Redux.createStore;
+// import { createStore } from 'redux';
 const store = createStore(todoApp);
 
 console.log('Initial state: ');
@@ -104,11 +105,40 @@ console.log('Current state: ');
 console.log(store.getState());
 console.log('--------------------');
 
+// const arr1 = {
+//   name: 'asker',
+//   text: 'plain',
+//   subject: 'math',
+//   course: 'economics'
+// }
 
-const object1 = {
-  asker: 'Asker',
-  nata: 'Natalya',
-  address: 'Address'
-}
+// const arr2 = {
+//   lastname: 'asker',
+//   food: 'plain',
+//   moon: 'math',
+//   soon: 'economics'
+// }
 
-console.log('Object.keys: ', Object.keys(object1))
+// const arr3 = [
+//   {
+//     apple: 'kg',
+//     meet: 'pounds',
+//     doom: 'math',
+//     pull: 'economics'
+//   },
+//   {
+//     rollforward: 'take over to the next period',
+//     money: 'honey',
+//     billy: 'villy',
+//     sooner: 'mooner'
+//   }
+// ]
+
+// console.log('Outcome Object.keys: ', Object.keys({arr1, arr2, arr3}));
+
+// const reds = {arr1, arr2, arr3};
+// console.log('reds: ', reds);
+
+// const outcome = Object.keys(reds).reduce((nextState, key)=> {
+//   nextState[key] = reds[key]; return nextState}, {});
+// console.log('outcome: ', outcome) 
