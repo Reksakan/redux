@@ -42,22 +42,22 @@ const visibilityFilter = (
     }
 };
 
-// const combineReducers = (reducers) => {
-//   return (state = {}, action) => {
-//     return Object.keys(reducers).reduce(
-//       (nextState, key) => {
-//         nextState[key] = reducers[key](
-//           state[key],
-//           action
-//         );
-//         return nextState;
-//       },
-//       {}
-//     )
-//   }
-// }
+const combineReducers = (reducers) => {
+  return (state = {}, action) => {
+    return Object.keys(reducers).reduce(
+      (nextState, key) => {
+        nextState[key] = reducers[key](
+          state[key],
+          action
+        );
+        return nextState;
+      },
+      {}
+    )
+  }
+}
 
-const { combineReducers } = Redux;
+// const {combineReducers} = Redux; 
 const todoApp = combineReducers({todos, visibilityFilter});
 
 const {createStore} = Redux;
@@ -66,10 +66,9 @@ const store = createStore(todoApp);
 const { createElement, useState} = React;
 html = htm.bind(createElement);
 
-const { Component } = React;
+const { Component } = React; 
 
 let nextTodoId = 0;
-
 class TodoApp extends Component {
   render () {
     return (
