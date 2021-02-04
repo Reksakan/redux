@@ -65,7 +65,7 @@ const store = createStore(todoApp);
 
 const { createElement, useState} = React;
 html = htm.bind(createElement);
-
+console.log('Start');
 const { Component } = React;
 
 let nextTodoId = 0;
@@ -85,7 +85,7 @@ class TodoApp extends Component {
             }}>Add Todo</button>
             <ul>
               ${this.props.todos.map(todo => {
-                html`<li key=${todo.id}>${todo.text}</li>`  
+                return html`<li key=${todo.id}>${todo.text}</li>`  
               })}
             </ul>
           </div>`

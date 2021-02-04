@@ -1,24 +1,25 @@
 import * as serviceWorker from './serviceWorker';
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import './index.css';
 import todoApp from './reducers/todoApp/todoApp';
 import TodoApp from './components/TodoApp';
 
+
 const store = createStore(todoApp);
 
 const render = () => {
+  const { todos } = store.getState()
+
   ReactDOM.render(
-    <React.StrictMode>
-      <TodoApp todos={this.props.value.todos}/>
-    </React.StrictMode>,
-    document.getElementsByName('root')
+    <TodoApp store={store} todos={todos} />,
+    document.getElementById('root')
   );
 }
 
 store.subscribe(render);
-// render();
+render();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

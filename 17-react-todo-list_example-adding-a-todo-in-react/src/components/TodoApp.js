@@ -1,35 +1,68 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { useRef, Component, createRef, useReducer } from 'react';
+import { createStore } from 'redux';
 // import { createElement, useState} from 'react';
 import PropTypes from 'prop-types';
+import todoApp from '../reducers/todoApp/todoApp';
 
 let nextTodoId = 0;
 
+// const TodoApp = () => {
+//   const inputRef = useRef(null)
+//   const [state, dispatch] = useReducer(todoApp, {todos: [], visibilityState: ''})
+//   const {todos} = state
+//   console.log(state)
+
+//   return (
+//     <div>
+//       <input ref={inputRef}/>
+//       <button onClick={
+//         () => { 
+//           dispatch({
+//             type: 'ADD_TODO',
+//             id: nextTodoId++,
+//             text: inputRef.current.value,
+//           });
+//           inputRef.current.value=''
+//         }
+//       }>ADD TODO</button>
+//       <ul>
+//         {todos.map(todo => {
+//           return <li key={todo.id}>{todo.text}</li>
+//         })}
+//       </ul>
+//     </div>
+//   )
+// }
+
 class TodoApp extends Component {
+  constructor(props) {
+    super(props)
+    this.inputRef = createRef();
+  }
   render() {
+    const { todos, store } = this.props
+
     return (
       <div>
-        <input ref={node => {this.input = node}}/>
-        <button onClick={()=> 
-          store.dispatch({
-            type: 'ADD_TODO',
-            id: nextTodoId++,
-            text: this.input.value
-          })}>ADD TODO</button>
+        <input ref={this.inputRef}/>
+        <button onClick={
+          () => { 
+            store.dispatch({
+              type: 'ADD_TODO',
+              id: nextTodoId++,
+              text: this.inputRef.current.value,
+            });
+            this.inputRef.current.value=''
+          }
+        }>ADD TODO</button>
         <ul>
-          {this.props.todos.map(todo => {
-            <li key={todo.id}>{todo.text}</li>
+          {todos.map(todo => {
+            return <li key={todo.id}>{todo.text}</li>
           })}
         </ul>
       </div>
     )
   }
-}
-
-TodoApp.propTypes = {
-  type: PropTypes.func.isRequired,
-  text: PropTypes.func.isRequired,
-  id: PropTypes.func.isRequired
 }
 
 export default TodoApp;
