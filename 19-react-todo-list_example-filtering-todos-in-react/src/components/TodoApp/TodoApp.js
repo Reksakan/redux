@@ -55,3 +55,40 @@ class TodoApp extends Component {
 }
 
 export default TodoApp;
+
+
+// const TodoApp = () => {
+//   const inputRef = useRef();
+//   const [state, dispatch] = useReducer(todoApp, {todos:[]})
+//   const {todos} = state
+
+//   return (
+//     <div>
+//       <input ref={inputRef} />
+//       <button onClick={
+//         ()=>{
+//           dispatch({
+//             type: 'ADD_TODO',
+//             id: nextTodoId++,
+//             text: inputRef.current.value
+//           })
+//           inputRef.current.value = ''
+//         }}>ADD_TODO</button>
+//       <p>
+//         {todos.map(todo => {
+//           return <li 
+//           key={todo.id}
+//           onClick={
+//             ()=>{
+//               dispatch({
+//                 type: 'TOGGLE_TODO',
+//                 id: todo.id,
+//               })
+//             }}
+//           style={{textDecoration : todo.completed ? 'line-through' : 'none'}}
+//           >{todo.text}</li>
+//         })}
+//       </p>
+//     </div>
+//   )
+// }

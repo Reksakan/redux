@@ -1,23 +1,24 @@
-import { Component } from 'react'; 
+import { Component } from 'react';
 
 class FilterLink extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   render() {
-    const {store, filter, children} = this.props
+    const {store, filter, children} = this.props;
+  
     return (
-      <a 
-        href='#'
-        onClick={
-          e=> {
-            e.preventDefault();
-            store.dispatch({
-              type: 'SET_VISIBILITY_FILTER',
-              filter
-            })
+      <a href='#' 
+          onClick={
+            e => {
+              e.preventDefault();
+              store.dispatch({
+                type: 'SET_VISIBILITY_FILTER',
+                filter
+              })
+            }
           }
-        }>{children}</a>
+      >{children}</a>
     )
   }
 }
